@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Easy Programming - Garage Door Control</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="includes/jquery.min.js"></script>
+        <link rel="stylesheet" href="includes/materialdesignicons.min.css">
+        <link rel="stylesheet" href="includes/bootstrap.min.css">
+        <script src="includes/bootstrap.min.js"></script>
+        <link id="favicon" rel="icon" type="image/x-icon" href="favicon.ico">
+        <link href="includes/sourcecodepro.css" rel="stylesheet">
+        <link href="includes/obitron.css" rel="stylesheet">
+        <script src="includes/mqtt.min.js"></script>
+
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
+          <div class="p-2"><a class="navbar-brand" href="#">Easy Programming </a></div> 
+            <div class="p-2"><span id="subtitle">Garage Door Control</span></div>
+        </nav>
+        <div class="container">
+              <div id="garage">
+                  <div class="row">
+                      <div class="col-md" style="margin-bottom: 1em;">
+                          <div class="card" style="width: 100% ">
+                              <ul class="list-group list-group-flush">
+                                  <li class="list-group-item d-flex justify-content-between"><span class="p-0"><span class="mdi mdi-thermometer"></span> Temperature:</span> <span class="tempHumidityAlign p-0"><span id="temperature"></span>&deg;F</span></li>
+                                  <li class="list-group-item d-flex justify-content-between"><span class="p-0"><span class="mdi mdi-water-percent"></span> Humidity:</span> <span class="tempHumidityAlign p-0"><span id="humidity"></span>%</span></li>
+                              </ul>
+                           </div>
+                      </div>
+                      <div class="col-md">
+                        <button type="button" class="btn btn-block" id="garageButton"><span class="mdi mdi-garage"></span> </button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </body>
+</html>

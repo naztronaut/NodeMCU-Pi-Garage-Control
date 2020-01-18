@@ -1,0 +1,76 @@
+## The YAML code below is for "Garage" - can be modified as you see fit.
+## Can be flashed using ESPHome.
+esphome:
+  name: garage
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  ssid: "Your SSID"
+  password: "YOUR SSID PASSWORD"
+
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Garage Fallback Hotspot"
+    password: "blahblahpassword"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+switch:
+  - platform: gpio
+    pin:
+      number: D1
+      inverted: yes
+    name: "Garage Door"
+    id: garageDoor
+  - platform: restart
+    name: "Garage Door Restart"
+    id: garageDoorRestart
+  - platform: template
+    name: "Garage Door Switch"
+    id: garageDoorTemplate
+    icon: "mdi:garage"
+    turn_on_action:
+    - switch.turn_on: garageDoor
+    - delay: 1s
+    - switch.turn_off: garageDoor
+  - platform: restart
+    name: 'Garage Door Restart'
+
+mqtt:
+  broker: {{Broker IP}}
+  discovery: True
+  username: "your mqtt username"
+  password: "your mqtt password"
+  topic_prefix: "garage"
+  on_message:
+    topic: "garageDoor/trigger"
+    then:
+      - switch.turn_on: garageDoorTemplate
+
+
+sensor:
+  - platform: dht
+    model: DHT11
+    pin: D2
+    temperature:
+      name: "Garage Temperature"
+      id: garageTemp
+      state_topic: "garage/temperature"
+      filters:
+      - lambda: return x * (9.0/5.0) + 32.0;
+      unit_of_measurement: "°F"
+    humidity:
+      name: "Garage Humidity"
+      id: garageHumidity
+      state_topic: "garage/humidity"
+    update_interval: 10s
