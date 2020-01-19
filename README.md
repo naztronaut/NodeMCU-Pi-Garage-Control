@@ -1,9 +1,15 @@
 # NodeMCU (ESP8266) Raspberry Pi - Garage Door Control
 This project controls your garage door opener using MQTT as the messaging service, ESPHome to configure the ESP8266 module, and a Raspberry Pi to serve the web app shown 
 in the demo video. The Raspberry Pi web server is not mandatory. You can trigger the Garage Door with any app that can publish an MQTT message (`garageDoor/trigger` - 
-configurable in `garage.yaml` as explained in the [ESPHome](#ESPHome) section below).
+configurable in `garage.yaml` as explained in the [ESPHome](#ESPHome) section below). Read more about this project at 
+https://www.easyprogramming.net/raspberrypi/nodemcu_garage_door_control.php.
 
-<img src="img/garageDoorDemo.gif" alt="Garage Door Automation Demo" />
+
+## Demo
+
+Check out the demo on YouTube by clicking on the following gif: 
+
+<a href="https://www.youtube.com/watch?v=gLJkOsSJFWg"><img src="img/garageDoorDemo.gif" alt="Garage Door Automation Demo" /></a>
 
 ## Hardware Requirements
 1. Raspberry Pi - any version will work since this will just host the web server 
@@ -39,8 +45,8 @@ The following diagram is for connecting your NodeMCU to your relay and DHT11 sen
 | Yellow | D2 | Data Pin on DHT |
 
 The blue wires represent the connections going into the Garage Door control. As you'll see in my demo, The door triggers (open/close/stop) when the two left-most terminals
-are connected in any way. When you put the two wires on the normally open connection on  your Relay module, they are not connected. When the connect closes, the door controller
-then knows to do something.  
+are connected in any way. When you put the two wires on the normally open connection on  your Relay module, they are not connected. When the connect closes, 
+the door controller then knows to do something.  
 
 ## ESPHome
 
@@ -94,9 +100,6 @@ To learn how to install Apache and run a simple app, check out my tutorial on
 [How to Turn your Pi into an Apache Web Server here](https://www.easyprogramming.net/raspberrypi/pi_apache_web_server.php).
 
 
-## Demo
-
-Check out the demo on YouTube at the following link: [https://www.youtube.com/watch?v=ddv5vsHgYhI](https://www.youtube.com/watch?v=ddv5vsHgYhI)
 
 ### Author
 Nazmus Nasir - [Easy Programming](https://www.easyprogramming.net)
