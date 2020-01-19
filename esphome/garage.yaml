@@ -43,8 +43,6 @@ switch:
     - switch.turn_on: garageDoor
     - delay: 1s
     - switch.turn_off: garageDoor
-  - platform: restart
-    name: 'Garage Door Restart'
 
 mqtt:
   broker: {{Broker IP}}
