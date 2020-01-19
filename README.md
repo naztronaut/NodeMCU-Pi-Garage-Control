@@ -3,10 +3,7 @@ This project controls your garage door opener using MQTT as the messaging servic
 in the demo video. The Raspberry Pi web server is not mandatory. You can trigger the Garage Door with any app that can publish an MQTT message (`garageDoor/trigger` - 
 configurable in `garage.yaml` as explained in the [ESPHome](#ESPHome) section below).
 
-<video autoplay="autoplay" loop="loop" muted="" controls="controls">
-  <source src=".img/garageDoorDemo.webm" type="video/webm" />
-</video>
-<img src=".img/garageDoorDemo.gif" alt="Garage Door Automation Demo" />
+<img src="img/garageDoorDemo.gif" alt="Garage Door Automation Demo" />
 
 ## Hardware Requirements
 1. Raspberry Pi - any version will work since this will just host the web server 
