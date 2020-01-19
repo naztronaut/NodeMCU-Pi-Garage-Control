@@ -1,5 +1,7 @@
-# NodeMCU-Pi-Garage-Control
-This will control all the lights
+# NodeMCU (ESP8266) Raspberry Pi - Garage Door Control
+This project controls your garage door opener using MQTT as the messaging service, ESPHome to configure the ESP8266 module, and a Raspberry Pi to serve the web app shown 
+in the demo video. The Raspberry Pi web server is not mandatory. You can trigger the Garage Door with any app that can publish an MQTT message (`garageDoor/trigger` - 
+configurable in `garage.yaml` as explained in the [ESPHome](#ESPHome) section below).
 
 ## Hardware Requirements
 1. Raspberry Pi - any version will work since this will just host the web server 
@@ -12,7 +14,9 @@ This will control all the lights
 
 ## Software Requirements
 1. ESPHome - perhaps through Hassio
-2. Apache for the web server
+2. MQTT Broker - any will work. I use Mosquitto installed on my Hassio (which is in turn installed on a Raspberry Pi 4)
+3. Apache for the web server - can be installed anywhere but I have it on a RPi Zero W that I use to serve other web content
+
 
 ## Wiring Diagram:
 
@@ -36,8 +40,60 @@ The blue wires represent the connections going into the Garage Door control. As 
 are connected in any way. When you put the two wires on the normally open connection on  your Relay module, they are not connected. When the connect closes, the door controller
 then knows to do something.  
 
+## ESPHome
+
+Upload the contents of `esphome/garage.yaml` to your ESP module using ESPHome. I use Hassio but if you have another method of doing so, it should be fine. 
+
+#### MQTT
+
+The following MQTT configurations are set and are configurable. If you configure the message, you must configure the subscription in `script.js` as shown below. The 
+MQTT setup in the YAML is as follows:
+
+```yaml
+mqtt:
+  broker: {{Broker IP}}
+  discovery: True
+  username: "your mqtt username"
+  password: "your mqtt password"
+  topic_prefix: "garage"
+  on_message:
+    topic: "garageDoor/trigger"
+    then:
+      - switch.turn_on: garageDoorTemplate
+```
+
+If you configure the topic above and if you are using the included web app, you must configure line 40 of `script.js` and publish to the new trigger:
+
+```javascript
+client.publish("garageDoor/trigger");
+```
+
+#### Celsius v. Fahrenheit v. Kelvin
+
+My YAML converts the default unit of measurement to Fahrenheit. To go back to Celsius, just remove this blcok:
+
+```yaml
+filters:
+      - lambda: return x * (9.0/5.0) + 32.0;
+      unit_of_measurement: "°F"
+```
+
+And if you like Kelvin, change the block to this:
+
+```yaml
+filters:
+      - lambda: return x + 273.15;
+      unit_of_measurement: "°K"
+```
+
+## (Optional) Raspberry Pi - Apache Web Server
+
+To learn how to install Apache and run a simple app, check out my tutorial on 
+[How to Turn your Pi into an Apache Web Server here](https://www.easyprogramming.net/raspberrypi/pi_apache_web_server.php).
+
 
 ## Demo
+
 Check out the demo on YouTube at the following link: [https://www.youtube.com/watch?v=ddv5vsHgYhI](https://www.youtube.com/watch?v=ddv5vsHgYhI)
 
 ### Author
